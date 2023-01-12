@@ -1,10 +1,11 @@
 \documentclass{article}
-\usepackage[a4paper, margin = 1.9cm]{geometry}
+\usepackage[a4paper, margin = 1.7cm]{geometry}
 \usepackage[english]{babel}
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{gensymb}
 \usepackage{csquotes}
+\usepackage{hyperref}
 
 \title{Pseudo code for mobile robot}
 \author{Lennart Großkreutz}
@@ -88,14 +89,30 @@ These information enable us to search for the port in a certain angle range.
 In a previous version of the algorithm, we searched for a door-like pattern in the distance array of an entire rotation.
 This led to problems because table legs also produce door-like patterns in the distance array, so the area between two table legs was often misinterpreted as the real door.
 
-
-
-
 \section{Technical remarks}
-\begin{itemize}
-	\item The robot does never know certainly whether it passed the door, so the outer loop is rather \enquote{while(true)}. The robot is stopped externally as soon as it passed the door.
-	That's also why the \textit{return;} statement doesn't appear in the real code.
-\end{itemize}
+The robot does never know certainly whether it passed the door, so the outer loop is rather \enquote{while(true)}. The robot is stopped externally as soon as it passed the door.
+That's also why the \textit{return;} statement doesn't appear in the real code.
 
+\section{Simulation}
+Parallel to the development of the algorithm, we wrote a simulation in Python using Pygame.
+The simulation allows us to build a model of the room and to test different ideas for algorithms.
+The robot in the simulation uses differential drive kinematics and is equipped with a laser sensor.
+We chose a laser sensor because it was easier to implement than an ultrasonic sensor,
+however we hope that this doesn't much impact the algorithm's success.
+One can also limit the range of the laser sensor.
+While we are not able to \textit{prove} that an algorithm will work on the real robot just by
+demonstrating its good performance in the simulation, the simulation served another purpose:
+If an idea is not even working in the simulated environment with perfect sensor data,
+and won't work on the robot as well.
+
+A screenshot of the simulation is visible in Figure \ref{fig:sim}.
+The source code can be found on Github: \url{https://github.com/LennartGr/Differential-Drive-Robot-with-Pygame}.
+
+\begin{figure}[b]
+	\centering
+	\includegraphics[width=.95\textwidth]{images/simulation.png}
+	\caption{Simulation using Pygame}
+	\label{fig:sim}
+\end{figure}
 
 \end{document}
